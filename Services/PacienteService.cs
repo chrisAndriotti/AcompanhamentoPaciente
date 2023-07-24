@@ -27,32 +27,48 @@ namespace CentralizadorExames.Services
             return await _context.Paciente.FindAsync(id);
         }
 
-        public async Task<Paciente> Adicionar(Paciente paciente)
+        public async Task<bool> Adicionar(Paciente paciente)
         {
-            _context.Paciente.Add(paciente);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Paciente.Add(paciente);
+                await _context.SaveChangesAsync();
 
-            return paciente;
+                return true;
+            }
+            catch(Exception ex)
+            {
+                System.Console.WriteLine($"  >>>>>  {ex.InnerException}");
+                return false;
+            }
         }
         
-        public async Task<Paciente?> Atualizar(int id, Paciente paciente)
+        public async Task<bool> Atualizar(int id, Paciente paciente)
         {
-            var buscaPaciente = await BuscarPorId(id);
-            
-            if (buscaPaciente is null)
-                return null;
+            try
+            {
+                var buscaPaciente = await BuscarPorId(id);
+                
+                if (buscaPaciente is null)
+                    return false;
 
-            buscaPaciente.Nome = paciente.Nome;
-            buscaPaciente.Idade = paciente.Idade;
-            buscaPaciente.Email = paciente.Email;
-            buscaPaciente.Telefone = paciente.Telefone;
-            buscaPaciente.DataNascimento = paciente.DataNascimento;
-            buscaPaciente.NomeResponsavel = paciente.NomeResponsavel;
-            buscaPaciente.TelefoneReponsavel = paciente.TelefoneReponsavel;
+                buscaPaciente.Nome = paciente.Nome;
+                buscaPaciente.Idade = paciente.Idade;
+                buscaPaciente.Email = paciente.Email;
+                buscaPaciente.Telefone = paciente.Telefone;
+                buscaPaciente.DataNascimento = paciente.DataNascimento;
+                buscaPaciente.NomeResponsavel = paciente.NomeResponsavel;
+                buscaPaciente.TelefoneReponsavel = paciente.TelefoneReponsavel;
 
-            await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
 
-            return buscaPaciente;
+                return true;
+            }
+            catch(Exception ex)
+            {
+                System.Console.WriteLine($"  >>>>>  {ex.InnerException}");
+                return false;
+            }
         }
 
         public async Task<bool> ExcluirPorId(int id)

@@ -10,8 +10,8 @@ namespace CentralizadorExames.Services.Interfaces
     {
         public Task<IEnumerable<Paciente>> BuscarTodos();
         public Task<Paciente> BuscarPorId(int id);
-        public Task<Paciente> Adicionar(Paciente paciente);
-        public Task<Paciente?> Atualizar(int id, Paciente paciente);
+        public Task<bool> Adicionar(Paciente paciente);
+        public Task<bool> Atualizar(int id, Paciente paciente);
         public Task<bool> ExcluirPorId(int Id);
     }
 }
