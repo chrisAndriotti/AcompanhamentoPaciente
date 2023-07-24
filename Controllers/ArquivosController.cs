@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using CentralizadorExames.Services;
+using AcompanhamentoPaciente.Services;
 
-namespace CentralizadorExames.Controllers
+namespace AcompanhamentoPaciente.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

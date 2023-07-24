@@ -10,39 +10,39 @@ namespace AcompanhamentoPaciente.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class PacienteController : ControllerBase
+    public class ProfissionalController : ControllerBase
     {
-        private readonly IPacienteService _pacienteService;
+        private readonly IProfissionalService _profissionalService;
 
-        public PacienteController(IPacienteService pacienteService)
+        public ProfissionalController(IProfissionalService profissionalService)
         {
-            _pacienteService = pacienteService;
+            _profissionalService = profissionalService;
         }
         
         [HttpGet("lista")]
         public async Task<IActionResult> Buscar()
         {
-            var pacientes = await _pacienteService.BuscarTodos();
-            if (pacientes is null)
+            var profissional = await _profissionalService.BuscarTodos();
+            if (profissional is null)
                 return NotFound();
 
-            return Ok(pacientes);
+            return Ok(profissional);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> BuscarPaciente(int id)
         {
-            var paciente = await _pacienteService.BuscarPorId(id);
-            if (paciente is null)
+            var profissional = await _profissionalService.BuscarPorId(id);
+            if (profissional is null)
                 return NotFound();
             
-            return Ok(paciente);
+            return Ok(profissional);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Adicionar([FromBody] Paciente paciente)
+        public async Task<IActionResult> Adicionar([FromBody] Profissional profissional)
         {
-            var resultado = await _pacienteService.Adicionar(paciente);
+            var resultado = await _profissionalService.Adicionar(profissional);
             if (resultado is false)
                 return NoContent();
 
@@ -50,9 +50,9 @@ namespace AcompanhamentoPaciente.Controllers
         }
 
         [HttpPut("atualizar/{id}")]
-        public async Task<IActionResult> Atualizar(int id, [FromBody] Paciente paciente)
+        public async Task<IActionResult> Atualizar(int id, [FromBody] Profissional profissional)
         {
-            var resultado = await _pacienteService.Atualizar(id, paciente);
+            var resultado = await _profissionalService.Atualizar(id, profissional);
             if (resultado is false)
                 return NoContent();
 
@@ -62,7 +62,7 @@ namespace AcompanhamentoPaciente.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> ExcluirPorId(int id)
         {
-            var resultado = await _pacienteService.ExcluirPorId(id);
+            var resultado = await _profissionalService.ExcluirPorId(id);
             if (resultado is false)
                 return NoContent();
 
