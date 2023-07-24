@@ -1,5 +1,6 @@
-﻿using CentralizadorExames.Data;
-using CentralizadorExames.Services;
+﻿using AcompanhamentoPaciente.Data;
+using AcompanhamentoPaciente.Services;
+using AcompanhamentoPaciente.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,15 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddScoped<ILeitorArquivoService, LeitorArquivoService>();
+builder.Services.AddScoped<IAcompanhamentoService, AcompanhamentoService>();
+builder.Services.AddScoped<ICargoService, CargoService>();
+builder.Services.AddScoped<IExameService, ExameService>();
+builder.Services.AddScoped<IPacienteService, PacienteService>();
+builder.Services.AddScoped<IProfissionalService, ProfissionalService>();
+
+
 builder.Services.AddDbContext<DataContext>();
 
 var app = builder.Build();
