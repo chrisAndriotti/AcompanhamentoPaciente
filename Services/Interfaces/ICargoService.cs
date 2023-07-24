@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CentralizadorExames.Models;
+using AcompanhamentoPaciente.Models;
 
-namespace CentralizadorExames.Services.Interfaces
+namespace AcompanhamentoPaciente.Services.Interfaces
 {
     public interface ICargoService
     {

@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CentralizadorExames.Models;
+using AcompanhamentoPaciente.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CentralizadorExames.Data
+namespace AcompanhamentoPaciente.Data
 {
     public class DataContext : DbContext
     {

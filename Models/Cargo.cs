@@ -1,4 +1,4 @@
-namespace CentralizadorExames.Models
+namespace AcompanhamentoPaciente.Models
 {
    public class Cargo
    {

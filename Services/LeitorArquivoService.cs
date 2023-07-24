@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CentralizadorExames.Services
+namespace AcompanhamentoPaciente.Services
 {
     public class LeitorArquivoService : ILeitorArquivoService
     {

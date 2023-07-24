@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CentralizadorExames.Data;
-using CentralizadorExames.Models;
-using CentralizadorExames.Services.Interfaces;
+using AcompanhamentoPaciente.Data;
+using AcompanhamentoPaciente.Models;
+using AcompanhamentoPaciente.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace CentralizadorExames.Services
+namespace AcompanhamentoPaciente.Services
 {
     public class AcompanhamentoService : IAcompanhamentoService
     {

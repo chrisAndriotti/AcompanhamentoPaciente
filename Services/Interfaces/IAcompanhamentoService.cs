@@ -1,6 +1,6 @@
-using CentralizadorExames.Models;
+using AcompanhamentoPaciente.Models;
 
-namespace CentralizadorExames.Services.Interfaces
+namespace AcompanhamentoPaciente.Services.Interfaces
 {
    public interface IAcompanhamentoService
    {

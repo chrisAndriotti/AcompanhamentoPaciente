@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CentralizadorExames.Services
+namespace AcompanhamentoPaciente.Services
 {
     public interface ILeitorArquivoService
     {

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace CentralizadorExames.Migrations
+namespace AcompanhamentoPaciente.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
