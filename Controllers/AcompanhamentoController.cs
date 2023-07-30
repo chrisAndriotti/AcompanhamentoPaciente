@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AcompanhamentoPaciente.DTOs;
 using AcompanhamentoPaciente.Models;
 using AcompanhamentoPaciente.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -19,13 +20,13 @@ namespace AcompanhamentoPaciente.Controllers
         }
         
         [HttpGet("lista")]
-        public async Task<IActionResult> BuscarTodos()
+        public IActionResult BuscarTodos()
         {
-            var acompnhamentos = await _acompanhamentoService.BuscarTodos();
-            if (acompnhamentos is null)
+            var acompanhamentos = _acompanhamentoService.BuscarTodos();
+            if (acompanhamentos is null)
                 return NotFound();
 
-            return Ok(acompnhamentos);
+            return Ok(acompanhamentos);
         }
 
         [HttpGet("{id}")]
@@ -42,7 +43,7 @@ namespace AcompanhamentoPaciente.Controllers
         public IActionResult BuscarPorPaciente(int idPaciente)
         {
             var acompanhamentoPorPaciente = _acompanhamentoService.BuscarPorPaciente(idPaciente);
-            if (acompanhamentoPorPaciente is null)
+            if (!acompanhamentoPorPaciente.Any())
                 return NotFound();
             
             return Ok(acompanhamentoPorPaciente);
@@ -52,14 +53,14 @@ namespace AcompanhamentoPaciente.Controllers
         public IActionResult BuscarPorProfissional(int idProfissional)
         {
             var acompanhamentoPorProfissional = _acompanhamentoService.BuscarPorProfissional(idProfissional);
-            if (acompanhamentoPorProfissional is null)
+            if (!acompanhamentoPorProfissional.Any())
                 return NotFound();
 
             return Ok(acompanhamentoPorProfissional); 
         }
 
         [HttpPost]
-        public async Task<IActionResult> AdicionarAcompanhamento(Acompanhamento acompanhamento)
+        public async Task<IActionResult> AdicionarAcompanhamento(AcompanhamentoDTO acompanhamento)
         {
             var resultado = await _acompanhamentoService.AdicionarAcompanhamento(acompanhamento);
             if (resultado is false)
