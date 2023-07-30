@@ -18,20 +18,32 @@ namespace AcompanhamentoPaciente.Services
             _context = dataContext;
         }
 
-        public async Task<IEnumerable<Profissional>> BuscarTodos()
+        public IEnumerable<Profissional> BuscarTodos()
         {
-            return await _context.Profissional.ToListAsync();
+            return _context.Profissional.Include(c => c.Cargo);
         }
 
-        public async Task<Profissional?> BuscarPorId(int id)
+        public Profissional? BuscarPorId(int id)
         {
-            return await _context.Profissional.FindAsync(id);
+            return _context.Profissional.Where(p => p.Id == id)
+                                                    .Include(c => c.Cargo)
+                                                    .FirstOrDefault();
         }
 
         public async Task<bool> Adicionar(Profissional profissional)
         {
             try
             {
+                if (profissional.Cargo is null)
+                    return false;
+
+                var buscaCargo =  _context.Cargo.Where(x => x.Id == profissional.Cargo.Id).FirstOrDefault();
+
+                if (buscaCargo is null)
+                    return false;
+
+                profissional.Cargo = buscaCargo;
+                
                 _context.Profissional.Add(profissional);
                 await _context.SaveChangesAsync();
                 
@@ -48,14 +60,22 @@ namespace AcompanhamentoPaciente.Services
         {
             try
             {
-                var buscarProfissional = await BuscarPorId(id);
+                if (profissional.Cargo is null)
+                    return false;
+
+                var buscarProfissional = BuscarPorId(id);
 
                 if (buscarProfissional is null)
+                    return false;
+
+                var buscaCargo = _context.Cargo.Where(c => c.Id == profissional.Cargo.Id).FirstOrDefault();
+
+                if (buscaCargo is null)
                     return false;
                 
                 buscarProfissional.Nome = profissional.Nome;
                 buscarProfissional.Registro = profissional.Registro;
-                buscarProfissional.Cargo = profissional.Cargo;
+                buscarProfissional.Cargo = buscaCargo;
 
                 await _context.SaveChangesAsync();
 
@@ -72,7 +92,7 @@ namespace AcompanhamentoPaciente.Services
         {
             try
             {
-                var buscarProfissional = await BuscarPorId(id);
+                var buscarProfissional = BuscarPorId(id);
                 
                 if (buscarProfissional is null)
                     return false;
