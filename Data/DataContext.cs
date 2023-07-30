@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AcompanhamentoPaciente.Data
 {
+#pragma warning disable CS1591
     public class DataContext : DbContext
     {
         private readonly IConfiguration _configuration;
@@ -29,4 +30,5 @@ namespace AcompanhamentoPaciente.Data
             optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
         }
     }
+#pragma warning restore CS1591
 }

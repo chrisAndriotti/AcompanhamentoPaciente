@@ -18,53 +18,78 @@ namespace AcompanhamentoPaciente.Controllers
         {
             _profissionalService = profissionalService;
         }
-        
+
+        /// <summary>
+        /// Lista de todos os profissionais cadastrados.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("lista")]
-        public async Task<IActionResult> Buscar()
+        public IActionResult Buscar()
         {
-            var profissional = await _profissionalService.BuscarTodos();
+            var profissional = _profissionalService.BuscarTodos();
             if (profissional is null)
                 return NotFound();
 
             return Ok(profissional);
         }
-
+        /// <summary>
+        /// Busca um profissional por Id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
-        public async Task<IActionResult> BuscarPaciente(int id)
+        public IActionResult BuscarPaciente(int id)
         {
-            var profissional = await _profissionalService.BuscarPorId(id);
+            var profissional = _profissionalService.BuscarPorId(id);
             if (profissional is null)
                 return NotFound();
-            
+
             return Ok(profissional);
         }
-
+        /// <summary>
+        /// Adiciona um novo profissional.
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Adicionar([FromBody] Profissional profissional)
         {
             var resultado = await _profissionalService.Adicionar(profissional);
             if (resultado is false)
-                return NoContent();
+                return BadRequest();
 
             return Ok(resultado);
         }
-
+        
+        /// <summary>
+        /// Atualizar um profissional.
+        /// </summary>
+        /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPut("atualizar/{id}")]
         public async Task<IActionResult> Atualizar(int id, [FromBody] Profissional profissional)
         {
             var resultado = await _profissionalService.Atualizar(id, profissional);
             if (resultado is false)
-                return NoContent();
+                return BadRequest();
 
             return Ok(resultado);
         }
 
+        /// <summary>
+        /// Exclui um profissional.
+        /// </summary>
+        /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> ExcluirPorId(int id)
         {
             var resultado = await _profissionalService.ExcluirPorId(id);
             if (resultado is false)
-                return NoContent();
+                return BadRequest();
 
             return Ok(resultado);
         }
